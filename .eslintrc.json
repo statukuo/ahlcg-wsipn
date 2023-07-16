@@ -1,0 +1,30 @@
+{
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module"
+    },
+    "extends": "react-app",
+    "rules": {
+        "comma-dangle": [ "error", "always-multiline" ],
+        "complexity": [ "error", 8 ],
+        "indent": [ "error", 4, { "SwitchCase": 1 } ],
+        "max-statements": [ "error", 22 ],
+        "new-cap": [ "error", { "capIsNewExceptions": [ "Q", "QQ" ] } ],
+        "no-console": 1,
+        "no-multi-spaces": [ "off" ],
+        "no-multiple-empty-lines": [ "error" ],
+        "no-spaced-func": [ "off" ],
+        "no-trailing-spaces": [ "error" ],
+        "no-underscore-dangle": [ "off" ],
+        "no-var": "warn",
+        "prefer-const": "warn",
+        "quote-props": [ "warn", "as-needed" ],
+        "quotes": [ "warn", "double" ],
+        "object-curly-spacing": [ "warn", "always" ],
+        "require-await": "warn",
+        "semi": [ "error", "always" ],
+        "array-bracket-spacing": [ "warn", "always"],
+        "react/self-closing-comp": [ "warn" ],
+        "react/jsx-curly-spacing": ["warn", {"when": "always", "allowMultiline": true, "children": false }]
+    }
+}
