@@ -1,7 +1,7 @@
 import logo from "./ahlcg.png";
 import "./App.css";
 import { useState } from "react";
-import { sample, random } from "lodash";
+import { sample, sampleSize, random } from "lodash";
 
 import guardianIcon from "./icons/guardian.webp";
 import seekerIcon from "./icons/seeker.webp";
@@ -208,6 +208,7 @@ function App() {
     const [ selectedScenarios, setSelectedScenarios ] = useState([]);
     const [ selectedInvestigators, setSelectedInvestigators ] = useState([]);
     const [ result, setResult ] = useState("");
+    const [ numberOfPlayers, setNumberOfPlayers ] = useState(4);
 
     const isSelected = (id, selectedList) => selectedList.find( selected => selected === id);
     const addOrRemoveSelected = (id, selectedList, setSelectedCallback) => {
@@ -229,11 +230,11 @@ function App() {
 
     const generateResult = () => {
         const randomizedScenarioId = sample(selectedScenarios);
-        const randomizedInvestigatorId = sample(selectedInvestigators);
+        const randomizedInvestigatorIds = sampleSize(selectedInvestigators, numberOfPlayers);
 
 
         const scenario = scenarios.find(({ id }) => id === randomizedScenarioId);
-        const investigator = investigators.find(({ id }) => id === randomizedInvestigatorId);
+        const investigatorList = investigators.filter(({ id }) => randomizedInvestigatorIds.includes(id));
 
         const withExtra = random(0,2) === 0;
         const standaloneScenarios = selectedScenarios.filter(scenario => scenario.includes("standalone"));
@@ -245,14 +246,14 @@ function App() {
         }
 
         setResult({
-            investigator,
+            investigatorList,
             scenario,
             extra,
         });
     };
 
     const renderResult = () => {
-        if (!result.investigator || !result.scenario) {
+        if (!result.investigatorList || !result.scenario) {
             return;
         }
 
@@ -260,7 +261,11 @@ function App() {
 
         return <div class="result">
             <p>You should play</p>
-            <p><img class="icon" src={ icons[result.investigator.class] } alt="icon"/> {result.investigator.name} </p>
+            {
+                result.investigatorList.map(investigator => {
+                    return <p><img class="icon" src={ icons[investigator.class] } alt="icon"/> {investigator.name} </p>;
+                })
+            }
             <p>in</p>
             <h3>{result.scenario.name}</h3>
             {extraMission}
@@ -331,9 +336,20 @@ function App() {
                                     </div>
                                 </div>
                             </div>
+                            <h2>Number of players</h2>
+                            <form>
+                                <div class="form-group">
+                                    <input type="range" class="form-control-range" id="formControlRange"  min="1" max="4" onChange={ (e) => setNumberOfPlayers(e.target.value) }/>
+                                    <label for="formControlRange">{numberOfPlayers}</label>
+                                </div>
+                            </form>
+                            <br/>
                             {
                                 (selectedInvestigators.length > 0 && selectedScenarios.length > 0)? <button type="button" class="btn btn-primary" onClick={ () => generateResult() }>What should I play next?</button> : null
                             }
+                            <br/>
+                            <br/>
+                            <br/>
                             <div>
                                 <p>
                                     {renderResult()}
