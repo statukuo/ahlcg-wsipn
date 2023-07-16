@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/ahlcg-wsipn/static/css/main.66cc155c.css",
+    "main.css": "/ahlcg-wsipn/static/css/main.2f172096.css",
     "main.js": "/ahlcg-wsipn/static/js/main.c70fd520.js",
     "static/js/787.37f71992.chunk.js": "/ahlcg-wsipn/static/js/787.37f71992.chunk.js",
     "static/media/ahlcg.png": "/ahlcg-wsipn/static/media/ahlcg.70ea4b66202d5eb22e6b.png",
@@ -11,12 +11,12 @@
     "static/media/guardian.webp": "/ahlcg-wsipn/static/media/guardian.17268c38c19fd361b99d.webp",
     "static/media/neutral.webp": "/ahlcg-wsipn/static/media/neutral.7b092682255f7edf237a.webp",
     "index.html": "/ahlcg-wsipn/index.html",
-    "main.66cc155c.css.map": "/ahlcg-wsipn/static/css/main.66cc155c.css.map",
+    "main.2f172096.css.map": "/ahlcg-wsipn/static/css/main.2f172096.css.map",
     "main.c70fd520.js.map": "/ahlcg-wsipn/static/js/main.c70fd520.js.map",
     "787.37f71992.chunk.js.map": "/ahlcg-wsipn/static/js/787.37f71992.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.66cc155c.css",
+    "static/css/main.2f172096.css",
     "static/js/main.c70fd520.js"
   ]
 }
