@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.css": "/ahlcg-wsipn/static/css/main.2f172096.css",
-    "main.js": "/ahlcg-wsipn/static/js/main.276259f5.js",
+    "main.css": "/ahlcg-wsipn/static/css/main.1a9d50b0.css",
+    "main.js": "/ahlcg-wsipn/static/js/main.9d05b599.js",
     "static/js/787.37f71992.chunk.js": "/ahlcg-wsipn/static/js/787.37f71992.chunk.js",
-    "static/media/ahlcg.png": "/ahlcg-wsipn/static/media/ahlcg.70ea4b66202d5eb22e6b.png",
+    "static/media/ahlcg.png": "/ahlcg-wsipn/static/media/ahlcg.9428266bfa2812c1a5c5.png",
     "static/media/seeker.webp": "/ahlcg-wsipn/static/media/seeker.8b4fba7b09066d28a0ce.webp",
     "static/media/rogue.webp": "/ahlcg-wsipn/static/media/rogue.3486809ab7bfdd04d8b3.webp",
     "static/media/mystic.webp": "/ahlcg-wsipn/static/media/mystic.b5a5e54fe230992a3616.webp",
@@ -11,12 +11,12 @@
     "static/media/guardian.webp": "/ahlcg-wsipn/static/media/guardian.17268c38c19fd361b99d.webp",
     "static/media/neutral.webp": "/ahlcg-wsipn/static/media/neutral.7b092682255f7edf237a.webp",
     "index.html": "/ahlcg-wsipn/index.html",
-    "main.2f172096.css.map": "/ahlcg-wsipn/static/css/main.2f172096.css.map",
-    "main.276259f5.js.map": "/ahlcg-wsipn/static/js/main.276259f5.js.map",
+    "main.1a9d50b0.css.map": "/ahlcg-wsipn/static/css/main.1a9d50b0.css.map",
+    "main.9d05b599.js.map": "/ahlcg-wsipn/static/js/main.9d05b599.js.map",
     "787.37f71992.chunk.js.map": "/ahlcg-wsipn/static/js/787.37f71992.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2f172096.css",
-    "static/js/main.276259f5.js"
+    "static/css/main.1a9d50b0.css",
+    "static/js/main.9d05b599.js"
   ]
 }
