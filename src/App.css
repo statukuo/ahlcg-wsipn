@@ -3,8 +3,9 @@
 }
 
 .App-logo {
-  height: 10vmin;
-  margin: 10vmin;
+  margin: 5vmin;
+  width: 90%;
+  max-width: 700px;
   pointer-events: none;
 }
 
@@ -29,6 +30,10 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.accordion {
+  margin-top: 40px;
 }
 
 .form-check-label {
