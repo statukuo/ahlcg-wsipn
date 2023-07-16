@@ -49,3 +49,7 @@
 .result .icon {
   float: none;
 }
+
+.container {
+  padding-bottom: 150px;
+}
