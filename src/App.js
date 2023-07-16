@@ -228,16 +228,26 @@ function App() {
     };
 
     const generateResult = () => {
-        const scenario = sample(selectedScenarios);
-        const investigator = sample(selectedInvestigators);
+        const randomizedScenarioId = sample(selectedScenarios);
+        const randomizedInvestigatorId = sample(selectedInvestigators);
 
-        const withExtra = random(0,3) === 0;
+
+        const scenario = scenarios.find(({ id }) => id === randomizedScenarioId);
+        const investigator = investigators.find(({ id }) => id === randomizedInvestigatorId);
+
+        const withExtra = random(0,2) === 0;
         const standaloneScenarios = selectedScenarios.filter(scenario => scenario.includes("standalone"));
 
+        let extra;
+
+        if ( withExtra && standaloneScenarios.length >0 && scenario.type !== "standalone") {
+            extra = scenarios.find(({ id }) => id === sample(standaloneScenarios));
+        }
+
         setResult({
-            investigator: investigators.find(({ id }) => id === investigator),
-            scenario: scenarios.find(({ id }) => id === scenario).name,
-            extra: withExtra && standaloneScenarios.length > 0? scenarios.find(({ id }) => id === sample(standaloneScenarios)) : null,
+            investigator,
+            scenario,
+            extra,
         });
     };
 
@@ -252,7 +262,7 @@ function App() {
             <p>You should play</p>
             <p><img class="icon" src={ icons[result.investigator.class] } alt="icon"/> {result.investigator.name} </p>
             <p>in</p>
-            <h3>{result.scenario}</h3>
+            <h3>{result.scenario.name}</h3>
             {extraMission}
         </div>;
     };
