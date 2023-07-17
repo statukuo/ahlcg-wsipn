@@ -58,3 +58,29 @@
 .container {
   padding-bottom: 150px;
 }
+
+.btn-group.class-selector-dropdown{
+  display: block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+
+.class-selector-dropdown {
+  width: 150px;
+  display: block;
+}
+
+.class-selector-dropdown p {
+  display: inline-block;
+  margin-bottom: 0;
+}
+.class-selector-dropdown li:hover {
+  cursor: pointer;
+}
+
+.class-selector-dropdown li p {
+  margin-top: 5px;
+  margin-left: 15px;
+}

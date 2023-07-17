@@ -1,7 +1,7 @@
 import logo from "./ahlcg.png";
 import "./App.css";
 import { useState } from "react";
-import { sample, sampleSize, random } from "lodash";
+import { sample, random } from "lodash";
 
 import guardianIcon from "./icons/guardian.webp";
 import seekerIcon from "./icons/seeker.webp";
@@ -9,14 +9,16 @@ import rogueIcon from "./icons/rogue.webp";
 import mysticIcon from "./icons/mystic.webp";
 import survivorIcon from "./icons/survivor.webp";
 import neutralIcon from "./icons/neutral.webp";
+import anyIcon from "./icons/logo.webp";
 
 const icons = {
-    guardian: guardianIcon,
-    seeker: seekerIcon,
-    rogue: rogueIcon,
-    mystic: mysticIcon,
-    survivor: survivorIcon,
-    neutral: neutralIcon,
+    any: { icon: anyIcon, name: "Any", id: "any" },
+    guardian: { icon: guardianIcon, name: "Guardian", id: "guardian" },
+    seeker: { icon: seekerIcon, name: "Seeker", id: "seeker" },
+    rogue: { icon: rogueIcon, name: "Rogue", id: "rogue" },
+    mystic: { icon: mysticIcon, name: "Mystic", id: "mystic" },
+    survivor: { icon: survivorIcon, name: "Survivor", id: "survivor" },
+    neutral: { icon: neutralIcon, name: "Neutral", id: "neutral" },
 };
 
 function App() {
@@ -209,6 +211,12 @@ function App() {
     const [ selectedInvestigators, setSelectedInvestigators ] = useState([]);
     const [ result, setResult ] = useState("");
     const [ numberOfPlayers, setNumberOfPlayers ] = useState(4);
+    const investigatorClasses = [
+        useState("any"),
+        useState("any"),
+        useState("any"),
+        useState("any"),
+    ];
 
     const isSelected = (id, selectedList) => selectedList.find( selected => selected === id);
     const addOrRemoveSelected = (id, selectedList, setSelectedCallback) => {
@@ -228,13 +236,33 @@ function App() {
         setSelectedCallback(allList.map(selected => selected.id));
     };
 
+    const selectInvestigatorClass = (idx, investigatorClass) => {
+        investigatorClasses[idx][1](investigatorClass);
+    };
+
+    const renderInvestigatorClass = (idx) => {
+        const selectedIcon = icons[investigatorClasses[idx][0]];
+        return <p>{selectedIcon.name} <img class="icon" src={ selectedIcon.icon } alt="icon"/></p>;
+    };
+
     const generateResult = () => {
         const randomizedScenarioId = sample(selectedScenarios);
-        const randomizedInvestigatorIds = sampleSize(selectedInvestigators, numberOfPlayers);
 
+        const investigatorList = investigatorClasses.splice(0, numberOfPlayers).reduce((acc, val) => {
+            let sampledInvestigatorId;
+            if (val[0] === "any") {
+                const filteredInvestigators = investigators.filter(({ id }) => selectedInvestigators.includes(id)).filter(({ id }) => !acc.includes(id));
+                sampledInvestigatorId = sample(filteredInvestigators.length > 0? filteredInvestigators : selectedInvestigators).id;
+            } else {
+                const filteredInvestigators = investigators.filter(({ id }) => selectedInvestigators.includes(id)).filter(({ id }) => !acc.includes(id)).filter(investigator => investigator.class === val[0]);
+                sampledInvestigatorId = sample(filteredInvestigators.length > 0? filteredInvestigators : selectedInvestigators).id;
+            }
+
+            acc.push(sampledInvestigatorId);
+            return acc;
+        }, []).map(investigatorId => investigators.find(({ id }) => id === investigatorId));
 
         const scenario = scenarios.find(({ id }) => id === randomizedScenarioId);
-        const investigatorList = investigators.filter(({ id }) => randomizedInvestigatorIds.includes(id));
 
         const withExtra = random(0,2) === 0;
         const standaloneScenarios = selectedScenarios.filter(scenario => scenario.includes("standalone"));
@@ -263,7 +291,7 @@ function App() {
             <p>You should play</p>
             {
                 result.investigatorList.map(investigator => {
-                    return <p><img class="icon" src={ icons[investigator.class] } alt="icon"/> {investigator.name} </p>;
+                    return <p><img class="icon" src={ icons[investigator.class].icon } alt="icon"/> {investigator.name} </p>;
                 })
             }
             <p>in</p>
@@ -327,7 +355,7 @@ function App() {
                                                     <input class="form-check-input" type="checkbox" role="switch" id={ `${investigator.id}` } onChange={ () => addOrRemoveSelected(investigator.id, selectedInvestigators, setSelectedInvestigators) } checked={ isSelected(investigator.id, selectedInvestigators) }/>
 
                                                     <label class={ `form-check-label ${investigator.class}` } for={ `${investigator.id}` }>
-                                                        <img class="icon" src={ icons[investigator.class] } alt="icon"/>
+                                                        <img class="icon" src={ icons[investigator.class].icon } alt="icon"/>
                                                         {investigator.name}
                                                     </label>
                                                 </div>;
@@ -343,6 +371,27 @@ function App() {
                                     <label for="formControlRange">{numberOfPlayers}</label>
                                 </div>
                             </form>
+                            <h2>Investigator classes</h2>
+                            {
+                                investigatorClasses.map((element, idx) => {
+                                    if (idx >= numberOfPlayers) {
+                                        return null;
+                                    }
+
+                                    return <div class="btn-group class-selector-dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle class-selector-dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {renderInvestigatorClass(idx)}
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            {
+                                                Object.entries(icons).map(([ key, value ]) => {
+                                                    return<li onClick={ () => selectInvestigatorClass(idx, value.id) }><p>{value.name} <img class="icon" src={ value.icon } alt="icon"/></p></li>;
+                                                })
+                                            }
+                                        </ul>
+                                    </div>;
+                                })
+                            }
                             <br/>
                             {
                                 (selectedInvestigators.length > 0 && selectedScenarios.length > 0)? <button type="button" class="btn btn-primary" onClick={ () => generateResult() }>What should I play next?</button> : null
